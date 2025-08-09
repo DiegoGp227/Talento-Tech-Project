@@ -1,0 +1,57 @@
+import bcryptjs from "bcryptjs";
+import db from "../../db/db.js";
+import jwt from 'jsonwebtoken';
+
+
+const SECRET_KEY = process.env.SECRET_KEY; 
+const TOKEN_EXPIRATION = process.env.TOKEN_EXPIRATION; 
+
+const signup = async (req, res) => {
+    try {
+        const connection = await db; 
+        
+        const { username, email, password } = req.body;
+        if (!username || !email || !password) {
+            return res.status(400).send({
+                message: "Some field is missing."
+            });
+        }
+
+        console.log('Consultando usuario con email:', email);
+        const [results] = await connection.execute('SELECT * FROM institutions WHERE email = ?', [email]);
+
+        if (results.length > 0) {
+            console.log("El usuario ya existe");
+            return res.status(409).send({
+                message: "User already exists.",
+            });
+        }
+
+        const salt = await bcryptjs.genSalt(10);
+        const hashedPassword = await bcryptjs.hash(password, salt);
+        console.log('Contraseña encriptada');
+
+        const insertQuery = 'INSERT INTO institutions (username, email, password) VALUES (?, ?, ?)';
+        const [insertResult] = await connection.execute(insertQuery, [username, email, hashedPassword]);
+
+        console.log('Usuario creado exitosamente con ID:', insertResult.insertId);
+
+        const token = jwt.sign({ id: insertResult.insertId, email: email }, SECRET_KEY, { expiresIn: TOKEN_EXPIRATION });
+
+        return res.status(201).json({
+            message: 'User successfully created.',
+            userId: insertResult.insertId,
+            token,
+            email,
+            username
+        });
+
+    } catch (error) {
+        console.error('Error en la operación:', error);
+        return res.status(500).send({
+            message: 'Internal server error.',
+        });
+    }
+};
+
+export default signup;

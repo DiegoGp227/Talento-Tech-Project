@@ -1,10 +1,14 @@
 import StudentName from "../atoms/StudentName";
 import StudentInputs from "./StudentInputs";
 
-export default function StudentRow() {
+interface studentRowProps {
+    studentName: string
+}
+
+export default function StudentRow({studentName}: studentRowProps ) {
     return (
-        <div className="flex bg-blue-200 m-[10px] p-[10px] rounded-[5px]" >
-            <StudentName name="arnolfo perez gonzales" />
+        <div className="flex border border-blue-700 m-[10px] p-[10px] rounded-[5px] items-center gap-2 justify-between w-full" >
+            <StudentName name={studentName} />
             <StudentInputs />
         </div>
     )

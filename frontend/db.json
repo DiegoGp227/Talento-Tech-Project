@@ -1,0 +1,57 @@
+{
+  "institutions": [
+    {
+      "id": 1,
+      "name": "Instituto ABC",
+      "email": "contacto@institutoabc.com",
+      "password": "hashed_password_abc"
+    }
+  ],
+  "teachers": [
+    {
+      "id": 1,
+      "institution_id": 1,
+      "name": "Juan Pérez",
+      "email": "juan.perez@institutoabc.com",
+      "password": "hashed_password_juan"
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "teacher_id": 1,
+      "name": "Matemáticas Básicas",
+      "description": "Curso introductorio a las matemáticas"
+    }
+  ],
+  "students": [
+    {
+      "id": 1,
+      "institution_id": 1,
+      "name": "Ana Gómez"
+    }
+  ],
+  "course_students": [
+    {
+      "id": 1,
+      "course_id": 1,
+      "student_id": 1
+    }
+  ],
+  "sessions": [
+    {
+      "id": 1,
+      "course_id": 1,
+      "session_date": "2025-08-15"
+    }
+  ],
+  "grades": [
+    {
+      "id": 1,
+      "session_id": 1,
+      "student_id": 1,
+      "grade": 4.5,
+      "attendance": true
+    }
+  ]
+}

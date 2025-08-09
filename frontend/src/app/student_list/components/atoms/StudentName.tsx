@@ -5,6 +5,6 @@ interface studenNameProps {
 
 export default function StudentName ({name}: studenNameProps) {
     return (
-        <p>{name}</p>
+        <p className="text-blue-700">{name}</p>
     )
 }

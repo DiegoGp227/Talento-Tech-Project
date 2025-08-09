@@ -10,7 +10,7 @@ export default function CursorDiv({ titleDiv }: cursorDivProps) {
   return (
     <div className="w-[340px] h-[200px] bg-gray-50 border-3 border-blue-400  m-[25px] rounded-[10px] flex flex-col justify-around">
       <div className="w-full h-[100px] text-center flex items-center justify-center">
-        <h2 className="text-blue-400 text-5xl">{titleDiv}</h2>
+        <h2 className="text-blue-700 text-5xl">{titleDiv}</h2>
       </div>
       <div className="flex justify-evenly">
         <RedirectButton titleButton="Estadisticas" icon={FaRegChartBar}/>
