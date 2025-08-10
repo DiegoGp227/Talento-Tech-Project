@@ -1,30 +1,34 @@
 import { useState } from "react";
 import { createItem } from "@/api/fetcher/auth"; 
-import { signUpURL } from "@/api/ulrs/urls";
+import { createTeacherUrl } from "@/api/ulrs/urls"; 
 
-interface UserInfo {
+interface TeacherInfo {
+  institution_id: number;
   username: string;
+  subject: string;
   email: string;
   password: string;
 }
-interface SignupResult {
+
+interface CreateTeacherResult {
   message?: string;
-  userId?: string ;
-  token?: string;
-  email?: string;
+  teacherId?: number;
   username?: string;
+  email?: string;
 }
 
-export function useSignup() {
+export function useCreateTeacher() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<SignupResult | null>(null);
+  const [data, setData] = useState<CreateTeacherResult | null>(null);
 
-  const signup = async (userInfo: UserInfo): Promise<SignupResult | null> => {
+  const createTeacher = async (
+    teacherInfo: TeacherInfo
+  ): Promise<CreateTeacherResult | null> => {
     setLoading(true);
     setError(null);
     try {
-      const result = await createItem(signUpURL, userInfo);
+      const result = await createItem(createTeacherUrl, teacherInfo);
       setData(result);
       setLoading(false);
       return result;
@@ -35,5 +39,5 @@ export function useSignup() {
     }
   };
 
-  return { signup, loading, error, data };
+  return { createTeacher, loading, error, data };
 }

@@ -2,32 +2,44 @@
 
 import Header from "@/components/Header/Header";
 import TeacherRow from "./components/atoms/TeacherRow";
-import NewTeacher from "./components/atoms/NewTeacher";
+import NewTeacher from "./components/atoms/NewTeacherButton";
+import { useState } from "react";
+import NewTeacherDiv from "./components/organism/NewTeacherDiv";
+import TeacherList from "./components/organism/TeacherList";
 
-export default function student_list() {
-  const institutionName = localStorage.getItem("email");
+export default function StudentList() {
+  const [modal, setModal] = useState(false);
+  const institutionName =
+    typeof window !== "undefined" ? localStorage.getItem("email") : "";
+
+  const institutionId =
+    typeof window !== "undefined" ? localStorage.getItem("userId") : "";
+
+  function openModal() {
+    setModal(true);
+  }
+
+  function closeModal() {
+    setModal(false);
+  }
 
   return (
     <>
       <Header gradeTitle="701" headerTitle="Lista de estudiantes" />
       <main className="flex flex-col items-center py-8 bg-gray-100 min-h-screen">
         <div className="flex min-w-[800px] justify-baseline">
-          <div className="m-5">
-            <h1 className="text-blue-700 text-xl font-bold">{institutionName}</h1>
-          </div>
+          <h1 className="text-blue-700 text-xl font-bold m-5">
+            {institutionName}
+          </h1>
         </div>
-        <div className="p-4 bg-white rounded-md shadow-md max-w-[1500px] flex flex-col items-center min-w-[800px]">
-          <h1 className="text-4xl text-blue-700">Docentes</h1>
-          <TeacherRow TeacherAsignature="Ingles" TeacherName="Juan camilo Pineda" onclick={()=>{}}/>
-          <TeacherRow TeacherAsignature="español" TeacherName="Esteban David jimenez quesada" onclick={()=>{}}/>
-          <TeacherRow TeacherAsignature="Educacion Fisica" TeacherName="david jerardo oviedo" onclick={()=>{}}/>
-          <TeacherRow TeacherAsignature="Sociales" TeacherName="Esteban moreno martinez" onclick={()=>{}}/>
-          <TeacherRow TeacherAsignature="Ciencias naturales" TeacherName="Maria elvira perez"/>
-          <NewTeacher />
-          <button className="flex border border-blue-700 text-blue-700 m-[10px] p-[10px] rounded-[5px] items-center justify-center gap-2 transition duration-300 hover:bg-blue-700 hover:text-gray-300 w-full">
-            Enviar
-          </button>
-        </div>
+        <TeacherList openModal={openModal} />
+
+        {/* Modal */}
+        {modal && (
+          <>
+            <NewTeacherDiv institutionId={institutionId} closeModal={closeModal} />
+          </>
+        )}
       </main>
     </>
   );

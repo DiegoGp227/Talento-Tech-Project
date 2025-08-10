@@ -39,21 +39,35 @@ export default function LoginPage() {
           onSubmit={handleSubmit}
           className="flex flex-col w-[300px] space-y-6 mt-5"
         >
+          <label
+            htmlFor="email"
+            className="block text-blue-700 font-semibold mb-2"
+          >
+            Email
+          </label>
           <input
             type="email"
             placeholder="Correo"
+            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full h-12 px-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full h-12 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
           />
+          <label
+            htmlFor="password"
+            className="block text-blue-700 font-semibold mb-2 "
+          >
+            Contraseña
+          </label>
           <input
             type="password"
             placeholder="Contraseña"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full h-12 px-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full h-12 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
           />
           <button
             type="submit"
