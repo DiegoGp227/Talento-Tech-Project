@@ -1,13 +1,17 @@
 import { useCreateTeacher } from "@/hooks/useCreateTeacher";
 import { useState } from "react";
 
-
 interface NewTeacherDivProps {
-  closeModal: () => void;
   institutionId: any;
+  closeModal: () => void;
+  onTeacherAdded: () => void;
 }
 
-export default function NewTeacherDiv({ closeModal, institutionId }: NewTeacherDivProps) {
+export default function NewTeacherDiv({
+  institutionId,
+  closeModal,
+  onTeacherAdded
+}: NewTeacherDivProps) {
   const [username, setUsername] = useState("");
   const [subject, setSubject] = useState("");
   const [email, setEmail] = useState("");
@@ -33,14 +37,14 @@ export default function NewTeacherDiv({ closeModal, institutionId }: NewTeacherD
     });
 
     if (result) {
-      alert("Docente creado correctamente");
+      onTeacherAdded();
       closeModal();
     }
   };
 
   return (
     <div
-      className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-20 flex justify-center items-center"
+      className="fixed inset-0 backdrop-blur-sm  bg-opacity-20 flex justify-center items-center"
       onClick={closeModal}
     >
       <div
@@ -120,9 +124,7 @@ export default function NewTeacherDiv({ closeModal, institutionId }: NewTeacherD
           </button>
 
           {error && (
-            <p className="mt-4 text-red-600 font-semibold">
-              Error: {error}
-            </p>
+            <p className="mt-4 text-red-600 font-semibold">Error: {error}</p>
           )}
         </form>
       </div>

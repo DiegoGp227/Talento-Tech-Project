@@ -1,19 +1,23 @@
 "use client";
 
 import Header from "@/components/Header/Header";
-import TeacherRow from "./components/atoms/TeacherRow";
-import NewTeacher from "./components/atoms/NewTeacherButton";
 import { useState } from "react";
 import NewTeacherDiv from "./components/organism/NewTeacherDiv";
 import TeacherList from "./components/organism/TeacherList";
+import { useTeachers } from "@/hooks/useGetTeachers";
 
 export default function StudentList() {
   const [modal, setModal] = useState(false);
+
   const institutionName =
     typeof window !== "undefined" ? localStorage.getItem("email") : "";
 
   const institutionId =
-    typeof window !== "undefined" ? localStorage.getItem("userId") : "";
+    typeof window !== "undefined"
+      ? Number(localStorage.getItem("userId"))
+      : null;
+
+  const { data, loading, error, refetch } = useTeachers(institutionId);
 
   function openModal() {
     setModal(true);
@@ -32,13 +36,20 @@ export default function StudentList() {
             {institutionName}
           </h1>
         </div>
-        <TeacherList openModal={openModal} />
+
+        {loading && <p>Cargando docentes...</p>}
+        {error && <p className="text-red-500">{error}</p>}
+        {!loading && !error && (
+          <TeacherList openModal={openModal} data={data} />
+        )}
 
         {/* Modal */}
         {modal && (
-          <>
-            <NewTeacherDiv institutionId={institutionId} closeModal={closeModal} />
-          </>
+          <NewTeacherDiv
+            institutionId={institutionId}
+            closeModal={closeModal}
+            onTeacherAdded={refetch}
+          />
         )}
       </main>
     </>
