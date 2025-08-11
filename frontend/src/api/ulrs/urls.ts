@@ -10,3 +10,10 @@ export const createTeacherUrl = `${API_BASE_URL}teacher`;
 
 export const getTeacherUrl = (institution_id: number) =>
   `${API_BASE_URL}teacher/${institution_id}`;
+
+//Courses
+
+export const createCourseURL = `${API_BASE_URL}courses`;
+
+export const getCourseURL = (teacher_id: number) =>
+  `${API_BASE_URL}courses/${teacher_id}`;

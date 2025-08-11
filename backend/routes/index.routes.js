@@ -5,18 +5,26 @@ import {
   createTeacher,
   getTeacher,
 } from "../controllers/teacher/teacher.controllers.js";
+import {
+  createCourse,
+  getCourses,
+} from "../controllers/courses/courses.controllers.js";
 // import { getMyTopics, postMyTopics, putMyTopics, deleteMyTopics } from "../controllers/topics/topics.controllers.js"
 // import { getMyTasks, postMyTasks, putMyTasks, deleteMyTasks }  from "../controllers/tasks/tasks.controllers.js"
 
 const router = Router();
 
-// Routes Auth
+//Routes Auth
 router.post("/signup", signup);
 router.post("/login", login);
 
 //Routes Teacher
 router.get("/teacher/:institution_id", getTeacher);
 router.post("/teacher", createTeacher);
+
+//Routes Courses
+router.get("/courses/:teacher_id", getCourses);
+router.post("/courses", createCourse);
 
 // // Router Topics
 // router.get("/topics/:id", getMyTopics);  //ok

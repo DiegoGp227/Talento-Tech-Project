@@ -1,5 +1,4 @@
 import Header from "@/components/Header/Header";
-import StudentName from "./components/atoms/StudentName";
 import StudentRow from "./components/molecules/StudentRow";
 
 export default function student_list() {

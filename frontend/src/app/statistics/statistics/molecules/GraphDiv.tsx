@@ -1,4 +1,4 @@
-import { Children, ReactElement } from "react";
+import { ReactElement } from "react";
 
 interface graphicDivProps {
   graph: ReactElement;

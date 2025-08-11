@@ -1,6 +1,5 @@
 import Header from "@/components/Header/Header";
 import PieGraphics from "@/graphics/pie";
-import StatisticsDiv from "./statistics/organisms/StatisticsDiv";
 import InfoDiv from "./statistics/molecules/InfoDiv";
 import GraphDiv from "./statistics/molecules/GraphDiv";
 
